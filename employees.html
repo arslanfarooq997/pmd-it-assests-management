@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMD Employee Management System</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f6fa;
+    color: #253247;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #073b4c;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 25px 15px;
+    color: white;
+    overflow-y: auto;
+}
+
+.logo {
+    text-align: center;
+    padding: 12px 5px 30px;
+    border-bottom: 1px solid #ffffff30;
+}
+
+.logo h2 {
+    font-size: 21px;
+    color: white;
+}
+
+.logo p {
+    font-size: 11px;
+    color: #a9d6e5;
+    margin-top: 7px;
+}
+
+.menu-title {
+    margin: 25px 12px 12px;
+    color: #9bbbc8;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.sidebar a {
+    display: block;
+    color: #d7e5eb;
+    text-decoration: none;
+    padding: 13px 15px;
+    margin: 5px 0;
+    border-radius: 7px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #087f8c;
+    color: white;
+}
+/* Main */
+
+.main {
+    margin-left: 245px;
+    padding: 25px;
+}
+
+.header {
+    background: white;
+    padding: 20px 25px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.header h2 {
+    font-size: 23px;
+}
+
+.header p {
+    color: #777;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* Cards */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 10px;
+    border-left: 4px solid #087f8c;
+    box-shadow: 0 2px 8px #00000008;
+}
+
+.card h3 {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 12px;
+}
+
+.card h1 {
+    font-size: 27px;
+    color: #087f8c;
+}
+
+/* Content */
+
+.content {
+    background: white;
+    padding: 23px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+button {
+    background: #087f8c;
+    color: white;
+    border: none;
+    padding: 11px 17px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #05636d;
+}
+
+.search {
+    padding: 11px;
+    width: 270px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+}
+
+/* Table */
+
+.table-container {
+    overflow-x: auto;
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 850px;
+}
+
+th {
+    background: #edf5f6;
+    color: #087f8c;
+    padding: 14px;
+    text-align: left;
+    font-size: 13px;
+    position: sticky;
+    top: 0;
+}
+
+td {
+    padding: 14px;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+tr:hover {
+    background: #f8fbfc;
+}
+
+.status {
+    padding: 6px 10px;
+    background: #e1f7e9;
+    color: #188444;
+    border-radius: 20px;
+    font-size: 11px;
+}
+
+.edit {
+    background: #e9a23b;
+    padding: 7px 10px;
+}
+
+.delete {
+    background: #dc4545;
+    padding: 7px 10px;
+}
+
+/* Form */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #087f8c;
+}
+
+.form-group.full {
+    grid-column: span 2;
+}
+
+.hidden {
+    display: none;
+}
+
+@media(max-width: 900px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 650px) {
+    .sidebar {
+        width: 65px;
+        padding: 15px 5px;
+    }
+
+    .sidebar a {
+        font-size: 0;
+        text-align: center;
+    }
+
+    .logo h2 {
+        font-size: 10px;
+    }
+
+    .logo p {
+        display: none;
+    }
+
+    .main {
+        margin-left: 65px;
+        padding: 12px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: span 1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <div class="logo">
+        <h2>PMD IT SYSTEM</h2>
+        <p>Pakistan Meteorological Department</p>
+    </div>
+
+    <div class="menu">
+        <a href="index.html">▦ Dashboard</a>
+        <a href="assestinventory.html">▣ Asset Inventory</a>
+        <a href="employees.html">♙ Employees</a>
+        <a href="asset_assignment.html">⇄ Asset Assignment</a>
+        <a href="categories.html">▤ Categories</a>
+        <a href="departments.html">▥ Departments</a>
+        <a href="maintenance.html">⚙ Maintenance</a>
+        <a href="vendors.html">▣ Vendors</a>
+        <a href="reports.html">▧ Reports</a>
+        <a href="user_management.html">♙ User Management</a>
+        <a href="settings.html">⚙ Settings</a>
+    </div>
+
+</div>
+/div>
+
+<!-- Main Content -->
+
+<div class="main">
+
+    <div class="header">
+        <div>
+            <h2>Employee Management</h2>
+            <p>Pakistan Meteorological Department</p>
+        </div>
+
+        <div>
+            <strong>Admin Panel</strong>
+        </div>
+    </div>
+
+    <!-- Dashboard Cards -->
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Employees</h3>
+            <h1 id="totalEmployees">0</h1>
+        </div>
+
+        <div class="card">
+            <h3>Active Employees</h3>
+            <h1 id="activeEmployees">0</h1>
+        </div>
+
+        <div class="card">
+            <h3>Departments</h3>
+            <h1 id="totalDepartments">0</h1>
+        </div>
+
+        <div class="card">
+            <h3>Average Experience</h3>
+            <h1 id="averageExperience">0 Years</h1>
+        </div>
+
+    </div>
+
+    <!-- Employee Form -->
+
+    <div class="content hidden" id="employeeForm">
+
+        <div class="content-header">
+            <h3 id="formTitle">Add New Employee</h3>
+            <button onclick="closeForm()">Close ✕</button>
+        </div>
+
+        <form id="empForm">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Employee ID</label>
+                    <input type="text" id="empId" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Employee Name</label>
+                    <input type="text" id="empName" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Father Name</label>
+                    <input type="text" id="fatherName">
+                </div>
+
+                <div class="form-group">
+                    <label>CNIC Number</label>
+                    <input type="text" id="cnic" placeholder="XXXXX-XXXXXXX-X">
+                </div>
+
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select id="gender">
+                        <option value="">Select Gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone" maxlength="11">
+                </div>
+
+                <div class="form-group">
+                    <label>Department</label>
+                    <select id="department" required>
+                        <option value="">Select Department</option>
+                        <option>IT Department</option>
+                        <option>Administration</option>
+                        <option>Finance</option>
+                        <option>HR Department</option>
+                        <option>Research Department</option>
+                        <option>Weather Forecasting</option>
+                        <option>Climatology</option>
+                        <option>Seismology</option>
+                        <option>Engineering</option>
+                        <option>Data Processing</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Designation</label>
+                    <input type="text" id="designation" placeholder="e.g. IT Officer">
+                </div>
+
+                <div class="form-group">
+                    <label>Previous Experience (Years)</label>
+                    <input type="number" id="experience" min="0" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label>Education</label>
+                    <input type="text" id="education" placeholder="e.g. BS Computer Science">
+                </div>
+
+                <div class="form-group">
+                    <label>Joining Date</label>
+                    <input type="date" id="joiningDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Employment Status</label>
+                    <select id="status">
+                        <option>Active</option>
+                        <option>On Leave</option>
+                        <option>Inactive</option>
+                    </select>
+                </div>
+
+                <div class="form-group full">
+                    <label>Address</label>
+                    <textarea id="address" rows="3"></textarea>
+                </div>
+
+            </div>
+
+            <br>
+
+            <button type="submit">Save Employee</button>
+            <button type="button" onclick="closeForm()"
+                style="background:#777">Cancel</button>
+
+        </form>
+
+    </div>
+
+    <!-- Employee Table -->
+
+    <div class="content" id="employees">
+
+        <div class="content-header">
+
+            <h3>Employee Records</h3>
+
+            <button onclick="openForm()">+ Add Employee</button>
+
+        </div>
+
+        <input
+            class="search"
+            type="text"
+            id="search"
+            placeholder="Search employee..."
+            oninput="displayEmployees()"
+        >
+
+        <br><br>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Employee Name</th>
+                        <th>Department</th>
+                        <th>Designation</th>
+                        <th>Experience</th>
+                        <th>Joining Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="employeeTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+// Get saved employee records
+
+let employees = JSON.parse(
+    localStorage.getItem("pmdEmployees")
+) || [];
+
+let editIndex = -1;
+
+// Open Form
+
+function openForm() {
+    document.getElementById("employeeForm").classList.remove("hidden");
+
+    document.getElementById("empForm").reset();
+
+    editIndex = -1;
+
+    document.getElementById("formTitle").innerText =
+        "Add New Employee";
+
+    document.getElementById("empId").value =
+        "PMD-" + Date.now().toString().slice(-6);
+
+    document.getElementById("employeeForm").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+// Close Form
+
+function closeForm() {
+    document.getElementById("employeeForm").classList.add("hidden");
+}
+
+// Save Employee
+
+document.getElementById("empForm").addEventListener(
+    "submit", function(e) {
+
+    e.preventDefault();
+
+    let employee = {
+        id: document.getElementById("empId").value,
+        name: document.getElementById("empName").value,
+        father: document.getElementById("fatherName").value,
+        cnic: document.getElementById("cnic").value,
+        gender: document.getElementById("gender").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        department: document.getElementById("department").value,
+        designation: document.getElementById("designation").value,
+        experience: Number(document.getElementById("experience").value),
+        education: document.getElementById("education").value,
+        joining: document.getElementById("joiningDate").value,
+        status: document.getElementById("status").value,
+        address: document.getElementById("address").value
+    };
+
+    if(editIndex === -1) {
+
+        if(employees.some(emp => emp.id === employee.id)) {
+            alert("Employee ID already exists!");
+            return;
+        }
+
+        employees.push(employee);
+
+        alert("Employee added successfully!");
+
+    } else {
+
+        employees[editIndex] = employee;
+
+        alert("Employee updated successfully!");
+
+    }
+
+    saveData();
+    displayEmployees();
+    closeForm();
+
+});
+
+// Save Data
+
+function saveData() {
+    localStorage.setItem(
+        "pmdEmployees",
+        JSON.stringify(employees)
+    );
+}
+
+// Display Employees
+
+function displayEmployees() {
+
+    let table = document.getElementById("employeeTable");
+
+    let search = document.getElementById("search")
+        .value.toLowerCase();
+
+    table.innerHTML = "";
+
+    let filtered = employees.filter(emp =>
+        emp.name.toLowerCase().includes(search) ||
+        emp.id.toLowerCase().includes(search) ||
+        emp.department.toLowerCase().includes(search)
+    );
+
+    filtered.forEach(emp => {
+
+        let index = employees.indexOf(emp);
+
+        let row = `
+            <tr>
+                <td>${emp.id}</td>
+                <td>${emp.name}</td>
+                <td>${emp.department}</td>
+                <td>${emp.designation}</td>
+                <td>${emp.experience} Years</td>
+                <td>${emp.joining}</td>
+                <td>
+                    <span class="status">${emp.status}</span>
+                </td>
+                <td>
+                    <button class="edit"
+                    onclick="editEmployee(${index})">✎</button>
+
+                    <button class="delete"
+                    onclick="deleteEmployee(${index})">✕</button>
+                </td>
+            </tr>
+        `;
+
+        table.innerHTML += row;
+
+    });
+
+    updateDashboard();
+}
+
+// Update Dashboard
+
+function updateDashboard() {
+
+    document.getElementById("totalEmployees").innerText =
+        employees.length;
+
+    document.getElementById("activeEmployees").innerText =
+        employees.filter(e => e.status === "Active").length;
+
+    document.getElementById("totalDepartments").innerText =
+        new Set(employees.map(e => e.department)).size;
+
+    let totalExperience = employees.reduce(
+        (sum, e) => sum + Number(e.experience), 0
+    );
+
+    let average = employees.length
+        ? (totalExperience / employees.length).toFixed(1)
+        : 0;
+
+    document.getElementById("averageExperience").innerText =
+        average + " Years";
+
+}
+
+// Edit Employee
+
+function editEmployee(index) {
+
+    let emp = employees[index];
+
+    document.getElementById("employeeForm").classList.remove("hidden");
+
+    document.getElementById("formTitle").innerText =
+        "Update Employee";
+
+    document.getElementById("empId").value = emp.id;
+    document.getElementById("empName").value = emp.name;
+    document.getElementById("fatherName").value = emp.father;
+    document.getElementById("cnic").value = emp.cnic;
+    document.getElementById("gender").value = emp.gender;
+    document.getElementById("email").value = emp.email;
+    document.getElementById("phone").value = emp.phone;
+    document.getElementById("department").value = emp.department;
+    document.getElementById("designation").value = emp.designation;
+    document.getElementById("experience").value = emp.experience;
+    document.getElementById("education").value = emp.education;
+    document.getElementById("joiningDate").value = emp.joining;
+    document.getElementById("status").value = emp.status;
+    document.getElementById("address").value = emp.address;
+
+    editIndex = index;
+
+    document.getElementById("employeeForm").scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+// Delete Employee
+
+function deleteEmployee(index) {
+
+    if(confirm("Are you sure you want to delete this employee?")) {
+
+        employees.splice(index, 1);
+
+        saveData();
+
+        displayEmployees();
+
+    }
+
+}
+
+// Phone Number Validation
+
+document.getElementById("phone").addEventListener("input", function() {
+    this.value = this.value.replace(/\D/g, "").slice(0, 11);
+});
+
+// Initial Display
+
+displayEmployees();
+
+</script>
+
+</body>
+</html>

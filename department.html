@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f6fa;
+    color: #253247;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #073b4c;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 25px 15px;
+    color: white;
+    overflow-y: auto;
+}
+
+.logo {
+    text-align: center;
+    padding: 12px 5px 30px;
+    border-bottom: 1px solid #ffffff30;
+}
+
+.logo h2 {
+    font-size: 21px;
+    color: white;
+}
+
+.logo p {
+    font-size: 11px;
+    color: #a9d6e5;
+    margin-top: 7px;
+}
+
+.menu-title {
+    margin: 25px 12px 12px;
+    color: #9bbbc8;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.sidebar a {
+    display: block;
+    color: #d7e5eb;
+    text-decoration: none;
+    padding: 13px 15px;
+    margin: 5px 0;
+    border-radius: 7px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #087f8c;
+    color: white;
+}
+</style>
+<body>
+    <!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="logo">
+        <h2>PMD IT SYSTEM</h2>
+        <p>Pakistan Meteorological Department</p>
+    </div>
+
+    <p class="menu-title">Main Menu</p>
+
+    <a href="index.html">▦ &nbsp; Dashboard</a>
+    <a href="assestinventory.html">▣ &nbsp; Asset Inventory</a>
+    <a href="employee.html">♙ &nbsp; Employees</a>
+    <a href="assignment.html">⇄ &nbsp; Asset Assignment</a>
+    <a href="categories.html">▤ &nbsp; Categories</a>
+    <a href="department.html">▥ &nbsp; Departments</a>
+
+    <p class="menu-title">Management</p>
+
+    <a href="maintenance.html">⚙ &nbsp; Maintenance</a>
+    <a href="vendors.html">♧ &nbsp; Vendors</a>
+    <a href="reports.html">▧ &nbsp; Reports</a>
+
+    <p class="menu-title">Settings</p>
+
+    <a href="users.html">♙ &nbsp; User Management</a>
+    <a href="settings.html">⚙ &nbsp; Settings</a>
+
+</aside>
+
+</body>
+</html>

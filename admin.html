@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMD Admin Login</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #073b4c, #087f8c);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Login Container */
+.login-container {
+    width: 100%;
+    max-width: 430px;
+    background: white;
+    border-radius: 15px;
+    padding: 40px 35px;
+    box-shadow: 0 15px 45px #00000035;
+}
+
+/* Logo */
+.logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo-icon {
+    width: 75px;
+    height: 75px;
+    background: #e5f5f5;
+    color: #087f8c;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    font-size: 35px;
+}
+
+.logo h2 {
+    color: #073b4c;
+    margin-top: 15px;
+    font-size: 23px;
+}
+
+.logo p {
+    color: #82909e;
+    font-size: 12px;
+    margin-top: 7px;
+}
+
+/* Heading */
+.login-heading {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.login-heading h3 {
+    color: #073b4c;
+    font-size: 22px;
+}
+
+.login-heading p {
+    color: #82909e;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #34465a;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 9px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #dce3e9;
+    border-radius: 7px;
+    outline: none;
+    font-size: 14px;
+}
+
+.form-group input:focus {
+    border-color: #087f8c;
+    box-shadow: 0 0 0 3px #087f8c15;
+}
+
+.password-box {
+    position: relative;
+}
+
+.password-box input {
+    padding-right: 65px;
+}
+
+.show-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    color: #087f8c;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Options */
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 12px;
+    gap: 10px;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #64748b;
+}
+
+.options a {
+    color: #087f8c;
+    text-decoration: none;
+}
+
+/* Login Button */
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 7px;
+    background: #087f8c;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background: #066570;
+}
+
+/* Message */
+.message {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 15px;
+    min-height: 18px;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #edf0f4;
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+@media(max-width: 450px) {
+    .login-container {
+        padding: 30px 22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="logo">
+        <div class="logo-icon">☁</div>
+        <h2>PMD IT SYSTEM</h2>
+        <p>Pakistan Meteorological Department</p>
+    </div>
+
+    <div class="login-heading">
+        <h3>Admin Login</h3>
+        <p>Sign in to access your dashboard</p>
+    </div>
+
+    <form id="loginForm">
+
+        <div class="form-group">
+            <label>Username / Email</label>
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter your username"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+
+            <div class="password-box">
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+                <button
+                    type="button"
+                    class="show-password"
+                    onclick="togglePassword()"
+                >
+                    SHOW
+                </button>
+            </div>
+        </div>
+
+        <div class="options">
+
+            <label class="remember">
+                <input type="checkbox" id="remember">
+                Remember me
+            </label>
+
+            <a href="#" onclick="forgotPassword(event)">
+                Forgot Password?
+            </a>
+
+        </div>
+
+        <button type="submit" class="login-btn">
+            Login to Dashboard →
+        </button>
+
+        <div class="message" id="message"></div>
+
+    </form>
+
+    <div class="footer">
+        © 2026 Pakistan Meteorological Department<br><br>
+        IT Asset & Resource Management System
+    </div>
+
+</div>
+
+<script>
+
+// Show / Hide Password
+function togglePassword() {
+
+    let password = document.getElementById("password");
+    let button = document.querySelector(".show-password");
+
+    if(password.type === "password") {
+        password.type = "text";
+        button.innerText = "HIDE";
+    } else {
+        password.type = "password";
+        button.innerText = "SHOW";
+    }
+
+}
+
+// Login Function
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value;
+
+    let message = document.getElementById("message");
+
+    // Demo credentials only
+    if(username === "admin" && password === "PMD123") {
+
+        message.style.color = "green";
+        message.innerText = "Login successful!";
+
+        sessionStorage.setItem("pmd_admin_logged_in", "true");
+
+        setTimeout(function() {
+            window.location.href = "index.html";
+        }, 700);
+
+    } else {
+
+        message.style.color = "red";
+        message.innerText = "Invalid username or password!";
+
+    }
+
+});
+
+// Forgot Password
+function forgotPassword(e) {
+    e.preventDefault();
+    alert("Please contact your system administrator to reset your password.");
+}
+
+</script>
+
+</body>
+</html>
